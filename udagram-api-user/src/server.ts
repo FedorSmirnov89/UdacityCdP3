@@ -16,8 +16,10 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
   await sequelize.sync();
 
   const app = express();
-  const port = process.env.PORT || 8082;
+  const port = 8080;
 
+  console.log('username: ' + config.username)
+  console.log('password: ' + config.password)
 
   app.use(bodyParser.json());
 
@@ -28,7 +30,7 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
       'X-Access-Token', 'Authorization',
     ],
     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-    origin: config.url,
+    //origin: config.url,
   }));
 
   app.use('/api/v0/', IndexRouter);

@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udagram-feed
+  labels: 
+    app: feed
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: feed
+  template:
+    metadata:
+      labels:
+        app: feed
+    spec:
+      containers:
+      - name: feed
+        image: fedor89/feed-image:v2
+        imagePullPolicy: Always         
+        ports:
+          - containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        env:
+        - name: PG_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: db-user
+        - name: PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: db-password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: db-name
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: db-host
+        - name: AWS_PROFILE
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret
+              key: aws-profile
+        - name: AWS_BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret
+              key: aws-bucket
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: s3-secret
+              key: jwt-secret
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "root/.aws/"
+          readOnly: true
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: aws-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-feed
+spec:
+  selector:
+    app: feed
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

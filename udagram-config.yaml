@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: udagram-config
+data:
+  url: "http://localhost:8100/"
+  host: "http://localhost:8100/"
+  app-name: uda

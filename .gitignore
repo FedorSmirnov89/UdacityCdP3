@@ -1,2 +1,5 @@
 set_env.sh
 *.jpg
+aws-secret.yaml
+db-secret.yaml
+s3-secret.yaml
