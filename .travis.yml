@@ -26,13 +26,13 @@ script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push fedor89/user-image
 
-  - cd ./udagram-frontend # building the front image
+  - cd ../udagram-frontend # building the front image
   - docker --version
   - docker build -t fedor89/front-image .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push fedor89/front-image
 
-  - cd ./reverseProxy # building the reverse proxy image
+  - cd ../reverseProxy # building the reverse proxy image
   - docker --version
   - docker build -t fedor89/reverse-proxy .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
