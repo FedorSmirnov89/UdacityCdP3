@@ -42,7 +42,7 @@ Create an AWS S3 bucket. Set the config values for environment variables prefixe
     ```bash
     npm install .
     ```
-* Install Ionic Framework's Command Line tools for us to build and run the application:
+* Install Ionic Framework's Command Line tools for us to build and run the application :
     ```bash
     npm install -g ionic
     ```
