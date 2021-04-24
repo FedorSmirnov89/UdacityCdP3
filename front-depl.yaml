@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: udagram-front
-        image: fedor89/front-image:v1
+        image: fedor89/front-image:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 80
